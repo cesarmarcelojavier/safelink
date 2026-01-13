@@ -1,11 +1,117 @@
-body {
+/* RESET */
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background-color: #0f172a;
+  padding: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
 }
 
+/* FONDO GENERAL */
+body {
+  height: 100vh;
+  background: linear-gradient(135deg, #0f172a, #020617);
+  color: #fff;
+}
 
-input, select, button {
+/* CONTENEDOR PRINCIPAL */
+.login-page {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* GLASS CARD */
+.login-card {
+  width: 820px;
+  height: 420px;
+  display: flex;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+/* PANEL IZQUIERDO */
+.login-left {
+  flex: 1;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-left h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.login-left h2 {
+  font-size: 18px;
+  font-weight: 400;
+  opacity: 0.85;
+  margin-bottom: 16px;
+}
+
+.login-left p {
+  font-size: 14px;
+  opacity: 0.7;
+  max-width: 280px;
+}
+
+/* PANEL DERECHO */
+.login-right {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-right form {
   width: 100%;
-  padding: 8px;
+  max-width: 260px;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-right label {
+  font-size: 12px;
+  opacity: 0.8;
+  margin-bottom: 4px;
+}
+
+.login-right input,
+.login-right select {
+  margin-bottom: 16px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.login-right input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.login-right button {
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #2563eb;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.login-right button:hover {
+  background: #1e40af;
 }

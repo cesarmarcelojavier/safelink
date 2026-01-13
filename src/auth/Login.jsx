@@ -1,43 +1,70 @@
 import { useState } from "react";
-import { empresas } from "../data/empresas";
 import { useAuth } from "../context/AuthContext";
-import "./Login.css";
+import { empresas } from "../data/empresas";
 
 export default function Login() {
   const { login } = useAuth();
-  const [empresaId, setEmpresaId] = useState("");
 
-  const handleIngresar = () => {
-    const empresa = empresas.find(e => e.id === Number(empresaId));
-    if (empresa) login(empresa);
+  const [empresaSeleccionada, setEmpresaSeleccionada] = useState("");
+  const [usuario, setUsuario] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!empresaSeleccionada) return;
+
+    // 🔐 login simple (mock)
+    login(empresaSeleccionada);
   };
 
   return (
     <div className="login-page">
       <div className="login-card">
-        <h1 className="login-title">SafeLink</h1>
-        <p className="login-subtitle">Acceso a infraestructura</p>
+        {/* PANEL IZQUIERDO */}
+        <div className="login-left">
+          <h1>SafeLink</h1>
+          <h2>Seguridad electrónica</h2>
+          <p>
+            Gestión visual de infraestructura, cableado estructural y seguridad.
+          </p>
+        </div>
 
-        <select
-          className="login-select"
-          value={empresaId}
-          onChange={(e) => setEmpresaId(e.target.value)}
-        >
-          <option value="">Seleccionar empresa…</option>
-          {empresas.map(e => (
-            <option key={e.id} value={e.id}>
-              {e.nombre}
-            </option>
-          ))}
-        </select>
+        {/* PANEL DERECHO */}
+        <div className="login-right">
+          <form onSubmit={handleSubmit}>
+            <label>Empresa</label>
+            <select
+              value={empresaSeleccionada}
+              onChange={(e) => setEmpresaSeleccionada(e.target.value)}
+              required
+            >
+              <option value="">Seleccionar empresa</option>
+              {empresas.map((emp) => (
+                <option key={emp.id} value={emp.nombre}>
+                  {emp.nombre}
+                </option>
+              ))}
+            </select>
 
-        <button
-          className="login-button"
-          disabled={!empresaId}
-          onClick={handleIngresar}
-        >
-          Ingresar
-        </button>
+            <label>Usuario</label>
+            <input
+              type="text"
+              placeholder="Usuario"
+              value={usuario}
+              onChange={(e) => setUsuario(e.target.value)}
+            />
+
+            <label>Contraseña</label>
+            <input
+              type="password"
+              placeholder="Contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <button type="submit">Ingresar</button>
+          </form>
+        </div>
       </div>
     </div>
   );
