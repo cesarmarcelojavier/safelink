@@ -11,6 +11,7 @@ function Sidebar() {
   );
 }
 
+
 const styles = {
   sidebar: {
     width: 200,
