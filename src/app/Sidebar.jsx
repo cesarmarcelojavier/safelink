@@ -6,7 +6,7 @@ function Sidebar() {
       <label><input type="checkbox" defaultChecked /> Datos</label>
       <label><input type="checkbox" defaultChecked /> Telefonía</label>
       <label><input type="checkbox" /> CCTV</label>
-      <label><input type="checkbox" /> Libres</label>
+      <label><input type="checkbox" /> Libre</label>
     </aside>
   );
 }
