@@ -1,13 +1,12 @@
-// src/data/empresas.js
-export const empresas = [
+const empresas = [
   {
-    id: 1,
+    id: "A",
     nombre: "Empresa A",
-    periscopios: [], // después conectamos los reales
   },
   {
-    id: 2,
+    id: "B",
     nombre: "Empresa B",
-    periscopios: [],
   },
 ];
+
+export default empresas;

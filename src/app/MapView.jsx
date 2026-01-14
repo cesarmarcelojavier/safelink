@@ -1,54 +1,36 @@
 import { useState } from "react";
-import plano from "../images/1.jpg";
+import { useAuth } from "../context/AuthContext";
 import Periscopio from "./Periscopio";
-import { periscopios } from "./periscopiosData";
 import RackView from "./RackView";
 
 export default function MapView() {
+  const { empresa } = useAuth();
+  if (!empresa) {
+    return null;
+  }
+
+
+
   const [periscopioActivo, setPeriscopioActivo] = useState(null);
   const [bocaActiva, setBocaActiva] = useState(null);
 
-  // 🧭 CAPTURADOR DE COORDENADAS
-  const handlePlanoClick = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-
-    console.log(
-      `Coordenadas -> x: ${x.toFixed(2)}%, y: ${y.toFixed(2)}%`
-    );
-  };
+  // 🗺️ plano dinámico según empresa
+  const planoSrc = `/data/${empresa}/plano.jpg`;
 
   return (
     <div style={{ display: "flex", height: "100vh" }}>
-
       {/* PLANO */}
-      <div
-        style={{ position: "relative", flex: 1 }}
-        onClick={handlePlanoClick}
-      >
+      <div style={{ position: "relative", flex: 1 }}>
         <img
-          src={plano}
-          alt="Plano"
-          style={{ width: "100%", display: "block" }}
+          src={planoSrc}
+          alt={`Plano ${empresa}`}
+          style={{ width: "100%", height: "100%", objectFit: "contain" }}
         />
 
-        {periscopios.map((p) => (
-          <Periscopio
-            key={p.id}
-            data={p}
-            activo={periscopioActivo?.id === p.id}
-            onClick={(e) => {
-              e.stopPropagation(); // 🔒 evita capturar click del plano
-              setPeriscopioActivo(p);
-              setBocaActiva(null);
-            }}
-          />
-        ))}
+        {/* Los periscopios los conectamos en el paso 2 */}
       </div>
 
-      {/* PANEL DERECHO (ÚNICO) */}
+      {/* PANEL DERECHO */}
       <div style={{ width: 360, borderLeft: "1px solid #ddd" }}>
         <RackView
           periscopio={periscopioActivo}

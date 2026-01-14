@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { empresas } from "../data/empresas";
+import  empresas  from "../data/empresas";
 
 export default function Login() {
   const { login } = useAuth();
@@ -11,25 +11,27 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (!empresaSeleccionada) return;
 
-    // 🔐 login simple (mock)
-    login(empresaSeleccionada);
+    // 🔓 Login libre (mock)
+    const empresa = empresas.find((e) => e.id === empresaSeleccionada);
+    login(empresa);
   };
 
   return (
-    <div className="login-page">
+    <div className="login-wrapper">
       <div className="login-card">
-        {/* PANEL IZQUIERDO */}
+        {/* LADO IZQUIERDO */}
         <div className="login-left">
           <h1>SafeLink</h1>
           <h2>Seguridad electrónica</h2>
           <p>
-            Gestión visual de infraestructura, cableado estructural y seguridad.
+            Gestión visual de infraestructura, cableado de redes y seguridad integral
           </p>
         </div>
 
-        {/* PANEL DERECHO */}
+        {/* LADO DERECHO */}
         <div className="login-right">
           <form onSubmit={handleSubmit}>
             <label>Empresa</label>
@@ -39,9 +41,9 @@ export default function Login() {
               required
             >
               <option value="">Seleccionar empresa</option>
-              {empresas.map((emp) => (
-                <option key={emp.id} value={emp.nombre}>
-                  {emp.nombre}
+              {empresas.map((e) => (
+                <option key={e.id} value={e.id}>
+                  {e.nombre}
                 </option>
               ))}
             </select>
