@@ -4,7 +4,10 @@ import { createContext, useContext, useEffect, useState } from "react";
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [empresa, setEmpresa] = useState(null);
+  //const [empresa, setEmpresa] = useState(null);
+  const [empresa, setEmpresa] = useState(
+    JSON.parse(localStorage.getItem("empresa")) || null
+  );
   const [loading, setLoading] = useState(true);
 
   // 🔁 restaurar sesión si existe

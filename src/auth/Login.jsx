@@ -12,10 +12,13 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!empresaSeleccionada) return;
+   // if (!empresaSeleccionada) return;
 
     // 🔓 Login libre (mock)
-    const empresa = empresas.find((e) => e.id === empresaSeleccionada);
+    const empresa = empresas.find(
+      (e) => e.id === empresaSeleccionada
+    );
+    if (!empresa) return;
     login(empresa);
   };
 
@@ -25,9 +28,9 @@ export default function Login() {
         {/* LADO IZQUIERDO */}
         <div className="login-left">
           <h1>SafeLink</h1>
-          <h2>Seguridad electrónica</h2>
+          <h2>Smart Security & IT </h2>
           <p>
-            Gestión visual de infraestructura, cableado de redes y seguridad integral
+            Gestión visual de infraestructura, cableado de redes y seguridad integral.
           </p>
         </div>
 
