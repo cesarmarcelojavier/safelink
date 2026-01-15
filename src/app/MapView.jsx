@@ -11,6 +11,16 @@ const planos = {
   B: planoB,
 };
 
+import { periscopiosA} from "../data/empresaA/periscopios";
+import { periscopiosB} from "../data/empresaB/periscopios"; 
+
+const periscopiosPorEmpresa = {
+  A: periscopiosA,
+  B: periscopiosB,
+};
+
+
+
 export default function MapView() {
   const { empresa } = useAuth();
   if (!empresa) {
@@ -27,6 +37,8 @@ export default function MapView() {
   // 🗺️ plano dinámico según empresa
  // const planoSrc = `/data/${empresa}/plano.jpg`;
   const planoSrc = planos[empresa.id];
+  const periscopios = periscopiosPorEmpresa[empresa.id] || [];
+
   return (
     <div style={{ display: "flex", height: "100vh" }}>
       {/* PLANO */}
@@ -39,6 +51,18 @@ export default function MapView() {
 
         {/* Los periscopios los conectamos en el paso 2 */}
       </div>
+
+      {periscopios.map((p) => (
+  <Periscopio
+    key={p.id}
+    data={p}
+    activo={periscopioActivo?.id === p.id}
+    onClick={() => {
+      setPeriscopioActivo(p);
+      setBocaActiva(null);
+    }}
+  />
+))}
 
       {/* PANEL DERECHO */}
       <div style={{ width: 360, borderLeft: "1px solid #ddd" }}>
