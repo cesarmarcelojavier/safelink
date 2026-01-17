@@ -1,0 +1,26 @@
+.admin-dashboard {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 60px;
+}
+
+.admin-card {
+  width: 320px;
+  height: 180px;
+  background: #0e2a3a;
+  border-radius: 14px;
+  padding: 24px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.admin-card h2 {
+  margin-bottom: 10px;
+}
