@@ -1,6 +1,7 @@
 import { useAuth } from "../context/AuthContext";
 import Login from "../auth/Login";
 import MapView from "./MapView";
+import AdminLayout from "../admin/AdminLayout";
 
 export default function AppLayout() {
   const { empresa, logout } = useAuth();
@@ -10,6 +11,10 @@ export default function AppLayout() {
   if (!empresa) {
     return <Login />;
   }
+  if (empresa.id ==="SafeLink") {
+    return <AdminLayout />;
+  }
+
 
   return (
     <div style={{ height: "100vh", display: "flex", flexDirection: "column" }}>

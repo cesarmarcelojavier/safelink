@@ -7,6 +7,10 @@ const empresas = [
     id: "B",
     nombre: "Empresa B",
   },
+  {
+    id: "SafeLink",
+    nombre: "SafeLink",
+  },
 ];
 
 export default empresas;
