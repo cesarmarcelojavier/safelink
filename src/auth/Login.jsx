@@ -43,7 +43,7 @@ export default function Login() {
               onChange={(e) => setEmpresaSeleccionada(e.target.value)}
               required
             >
-              <option value="">Seleccionar empresa</option>
+              <option value="">Selecciona tu empresa</option>
               {empresas.map((e) => (
                 <option key={e.id} value={e.id}>
                   {e.nombre}
