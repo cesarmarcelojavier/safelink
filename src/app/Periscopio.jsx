@@ -1,23 +1,20 @@
-export default function Periscopio({ data, onClick, activo }) {
+export default function Periscopio({ x, y, onClick }) {
   return (
     <div
       onClick={onClick}
       style={{
         position: "absolute",
-        left: `${data.x}%`,
-        top: `${data.y}%`,
-        width: 28,
-        height: 28,
-        border: `2px solid ${activo ? "#003cff" : "#0078ff"}`,
-        background: activo
-          ? "rgba(0,60,255,0.35)"
-          : "rgba(0,120,255,0.25)",
+        left: x,
+        top: y,
         transform: "translate(-50%, -50%)",
+        width: 14,
+        height: 14,
+        borderRadius: "50%",
+        background: "#00d1ff",
         cursor: "pointer",
-        borderRadius: 4,
-        zIndex: 10
+        boxShadow: "0 0 6px rgba(0, 209, 255, 0.8)",
       }}
-      title={data.id}
+      title="Periscopio"
     />
   );
 }

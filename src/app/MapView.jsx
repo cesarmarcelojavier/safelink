@@ -1,71 +1,95 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useAuth } from "../context/AuthContext";
 import Periscopio from "./Periscopio";
 import RackView from "./RackView";
 
-import planoA from "../data/empresaA/plano.jpg";
-import planoB from "../data/empresaB/plano.jpg";
-
-const planos = {
-  A: planoA,
-  B: planoB,
-};
-
-import { periscopiosA} from "../data/empresaA/periscopios";
-import { periscopiosB} from "../data/empresaB/periscopios"; 
-
-const periscopiosPorEmpresa = {
-  A: periscopiosA,
-  B: periscopiosB,
-};
-
-
-
 export default function MapView() {
   const { empresa } = useAuth();
-  if (!empresa) {
-    return null;
-  }
 
-
-
+  const [periscopios, setPeriscopios] = useState([]);
   const [periscopioActivo, setPeriscopioActivo] = useState(null);
   const [bocaActiva, setBocaActiva] = useState(null);
- 
 
+  const imgRef = useRef(null);
+  const [imgSize, setImgSize] = useState(null);
 
-  // 🗺️ plano dinámico según empresa
- // const planoSrc = `/data/${empresa}/plano.jpg`;
-  const planoSrc = planos[empresa.id];
-  const periscopios = periscopiosPorEmpresa[empresa.id] || [];
+  if (!empresa) return null;
+
+  const planoSrc = `/data/${empresa.id}/plano.jpg`;
+
+  // cargar periscopios
+  useEffect(() => {
+    fetch(`/data/${empresa.id}/periscopios.json`)
+      .then((r) => r.json())
+      .then(setPeriscopios)
+      .catch(() => setPeriscopios([]));
+  }, [empresa]);
+
+  // medir imagen REAL renderizada
+  const handleImgLoad = () => {
+    const img = imgRef.current;
+    if (!img) return;
+
+    const ratio = img.naturalWidth / img.naturalHeight;
+    const container = img.parentElement.getBoundingClientRect();
+
+    let width = container.width;
+    let height = width / ratio;
+
+    if (height > container.height) {
+      height = container.height;
+      width = height * ratio;
+    }
+
+    setImgSize({ width, height });
+  };
 
   return (
-    <div style={{ display: "flex", height: "100vh" }}>
-      {/* PLANO */}
-      <div style={{ position: "relative", flex: 1 }}>
-        <img
-          src={planoSrc}
-          alt={`Plano ${empresa.nombre}`}
-          style={{ width: "100%", height: "100%", objectFit: "contain" }}
-        />
+    <div style={{ display: "flex", height: "100vh", background: "#000" }}>
+      <div
+        style={{
+          flex: 1,
+          background: "#111",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          position: "relative",
+        }}
+      >
+        {/* WRAPPER EXACTO */}
+        {imgSize && (
+          <div
+            style={{
+              position: "absolute",
+              width: imgSize.width,
+              height: imgSize.height,
+            }}
+          >
+            {periscopios.map((p) => (
+              <Periscopio
+                key={p.id}
+                x={`${p.x}%`}
+                y={`${p.y}%`}
+                onClick={() => setPeriscopioActivo(p)}
+              />
+            ))}
+          </div>
+        )}
 
-        {/* Los periscopios los conectamos en el paso 2 */}
+        <img
+          ref={imgRef}
+          src={planoSrc}
+          alt=""
+          onLoad={handleImgLoad}
+          style={{
+            maxWidth: "100%",
+            maxHeight: "100%",
+            objectFit: "contain",
+          }}
+        />
       </div>
 
-      {periscopios.map((p) => (
-  <Periscopio
-    key={p.id}
-    data={p}
-    activo={periscopioActivo?.id === p.id}
-    onClick={() => {
-      setPeriscopioActivo(p);
-      setBocaActiva(null);
-    }}
-  />
-))}
-
-      {/* PANEL DERECHO */}
-      <div style={{ width: 360, borderLeft: "1px solid #ddd" }}>
+      <div style={{ width: 360, borderLeft: "1px solid #333" }}>
         <RackView
           periscopio={periscopioActivo}
           boca={bocaActiva}

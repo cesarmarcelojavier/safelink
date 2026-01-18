@@ -1,0 +1,19 @@
+[
+  {
+    "id": "P1",
+    "x": 41,
+    "y": 50,
+    "bocas": [
+      { "id": 1, "tipo": "datos" },
+      { "id": 2, "tipo": "telefonia" }
+    ]
+  },
+  {
+    "id": "P2",
+    "x": 41,
+    "y": 35,
+    "bocas": [
+      { "id": 1, "tipo": "datos" }
+    ]
+  }
+]

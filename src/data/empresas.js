@@ -1,10 +1,10 @@
 const empresas = [
   {
-    id: "A",
+    id: "empresaA",
     nombre: "Empresa A",
   },
   {
-    id: "B",
+    id: "empresaB",
     nombre: "Empresa B",
   },
   {
